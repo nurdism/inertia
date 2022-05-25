@@ -5,6 +5,7 @@ export default async function createInertiaApp({ id = 'app', resolve, setup, tit
   const isServer = typeof window === 'undefined'
   const el = isServer ? null : document.getElementById(id)
   const initialPage = page || JSON.parse(el.dataset.page)
+  const classes = page.classes || ''
   const resolveComponent = name => Promise.resolve(resolve(name)).then(module => module.default || module)
 
   let head = []
@@ -32,6 +33,7 @@ export default async function createInertiaApp({ id = 'app', resolve, setup, tit
         id,
         'data-page': JSON.stringify(initialPage),
         innerHTML: render(vueApp),
+        class: classes,
       }),
     }))
 
